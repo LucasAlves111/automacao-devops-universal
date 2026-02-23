@@ -30,6 +30,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       
+      # You can also do lsb_release -a && free -h for one line
       - name: Explorando o Runner
         run: lsb_release -a 
         
@@ -47,9 +48,21 @@ jobs:
 
       - name: Build React app
         run: npm run build
+        
+      - name: Validar sintaxe do HTML
+        uses: Cyb3r-Jak3/html5validator-action@v7.2.0
 
+        with:
+          root: dist/
+
+      - name: Checar arquivos estáticos
+        run:
+          ls -R
+          echo "Todos os arquivos foram carregados no Runner!"
+          
       - name: Setup Pages
         uses: actions/configure-pages@v4
+          
 
       - name: Upload build artifact
         uses: actions/upload-pages-artifact@v4
