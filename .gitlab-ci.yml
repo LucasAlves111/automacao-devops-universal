@@ -1,6 +1,10 @@
 image: alpine:latest
 
+stages:
+  - test
+
 verificar-arquivos:
+  stage: test
   script:
     - echo "Verificando arquivos do projeto..."
     - test -f index.html && echo "index.html existe!" || (echo "ERRO: index.html não encontrado!" && exit 1)
