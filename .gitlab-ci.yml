@@ -1,0 +1,8 @@
+image: alpine:latest
+
+verificar-arquivos:
+  script:
+    - echo "Verificando arquivos do projeto..."
+    - test -f index.html && echo "index.html existe!" || (echo "ERRO: index.html não encontrado!" && exit 1)
+    - test -s index.html && echo "index.html não está vazio!" || (echo "ERRO: index.html está vazio!" && exit 1)
+    - grep -i "<html" index.html && echo "Tag HTML encontrada!" || (echo "ERRO: Tag HTML não encontrada!" && exit 1)
