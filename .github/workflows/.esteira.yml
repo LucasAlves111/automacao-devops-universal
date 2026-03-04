@@ -34,5 +34,5 @@ jobs:
         run: |
           mkdir dist
           cp index.html dist/
-          cp *.css dist/
+          cp src/index.css dist/
           echo "Entrega preparada com sucesso!"
