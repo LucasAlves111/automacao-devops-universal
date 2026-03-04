@@ -22,7 +22,7 @@ jobs:
       - uses: actions/checkout@v3
       - name: Criar pasta dist
         run: |
-          mkdir build
+          mkdir dist
           cp index.html dist/
           cp src/index.css dist/
           echo "Build concluído!"
