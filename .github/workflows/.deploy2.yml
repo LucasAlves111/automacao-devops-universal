@@ -1,0 +1,46 @@
+name: Entrega Blindada
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Run Linter
+        run: |
+          test -f index.html && echo "HTML encontrado!" || (echo "ERRO: HTML não encontrado!" && exit 1)
+          test -f src/index.css && echo "CSS encontrado!" || (echo "ERRO: CSS não encontrado!" && exit 1)
+
+  build:
+    runs-on: ubuntu-latest
+    needs: [test]
+    steps:
+      - uses: actions/checkout@v3
+      - name: Criar pasta dist
+        run: |
+          mkdir dist
+          cp index.html dist/
+          cp src/index.css dist/
+          echo "Build concluído!"
+      - name: Upload artefato
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist/
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: [build]
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
