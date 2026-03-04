@@ -56,7 +56,7 @@ jobs:
           root: dist/
 
       - name: Checar arquivos estáticos
-        run:
+        run: |
           ls -R
           echo "Todos os arquivos foram carregados no Runner!"
           
